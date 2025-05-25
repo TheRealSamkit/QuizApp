@@ -23,20 +23,27 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function getQuestions(category, str) {
-	categoryCon.classList.toggle("d-none");
-	QuizBox.classList.toggle("d-none");
+	categoryCon.classList.add("d-none");
+	QuizBox.classList.remove("d-none");
 	quizTitle.textContent = str;
+	quizCon.innerHTML = "";
+	selectQuestions = [];
+
 	for (let i = 0; i < 10; i++) {
-		selectQuestions[i] = categories[category].pop(
-			rand(-1, categories[category].length)
-		);
+		if (categories[category].length === 0) break;
+		let index = rand(0, categories[category].length - 1);
+		let question = categories[category].splice(index, 1)[0];
+		selectQuestions.push(question);
 	}
+
+	console.log(selectQuestions);
 	loadQuestions();
 }
 
 function rand(min, max) {
 	min = Math.ceil(min);
 	max = Math.floor(max);
+
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -69,6 +76,7 @@ function endQuiz() {
 	selectedOptions.forEach((input) => {
 		userAnswers.push(input.value);
 	});
+
 	for (let i = 0; i < selectQuestions.length; i++) {
 		if (userAnswers[i] === selectQuestions[i].answer) correctAns++;
 	}
