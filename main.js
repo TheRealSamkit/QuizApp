@@ -1,4 +1,4 @@
-import { categories } from "/assets/quiz-ques.js";
+import { categories } from "./assets/quiz-ques.js";
 
 let selectQuestions = Array(10).fill(null);
 
